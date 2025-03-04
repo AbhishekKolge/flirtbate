@@ -15,7 +15,7 @@
     "clean": "rimraf build logs .next",
     "clean:all": "rimraf build logs .next node_modules",
     "prebuild": "pnpm lint",
-    "lint": "next lint --fix && eslint 'src/**/*.{ts,tsx}' --fix",
+    "lint": "next lint && eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:check": "next lint && eslint 'src/**/*.{ts,tsx}' --max-warnings=0",
     "lint:staged": "lint-staged",
     "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
@@ -66,12 +66,10 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "next lint --fix",
       "eslint --fix",
       "prettier --write"
     ],
     "*.test.{ts,tsx}": [
-      "next lint --fix",
       "eslint --fix",
       "prettier --write",
       "jest --bail --findRelatedTests --maxWorkers=2"
