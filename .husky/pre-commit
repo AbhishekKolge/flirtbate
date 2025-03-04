@@ -1,0 +1,2 @@
+echo "🔍 Running lint-staged..."
+pnpm run lint:staged

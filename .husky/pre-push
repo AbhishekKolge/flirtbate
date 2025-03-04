@@ -1,0 +1,7 @@
+if ! git log -1 --pretty=format:'%h %G?' | grep -q 'G'; then
+  echo "❌ ERROR: Your last commit is NOT signed!"
+  exit 1
+fi
+
+echo "✅ Your last commit is signed. Pushing..."
+
