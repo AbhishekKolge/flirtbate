@@ -2,24 +2,73 @@
   "name": "flirtbate",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbhishekKolge/flirtbate.git"
+  },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "local": "dotenv -e .env.local -- next dev --turbopack -p 3000",
+    "dev": "dotenv -e .env.development -- next dev --turbopack -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "clean": "rimraf build logs .next",
+    "clean:all": "rimraf build logs .next node_modules",
+    "prebuild": "pnpm lint",
+    "lint": "next lint --fix && eslint 'src/**/*.{ts,tsx}' --fix",
+    "lint:check": "next lint && eslint 'src/**/*.{ts,tsx}' --max-warnings=0",
+    "lint:staged": "lint-staged",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
+    "prepare": "husky && husky install"
   },
+  "author": "Abhishek Kolge",
   "dependencies": {
+    "next": "15.2.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.1"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.1",
-    "@eslint/eslintrc": "^3"
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.2.1",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-import-resolver-typescript": "^3.8.3",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-unsanitized": "^4.1.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "next lint --fix",
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.test.{ts,tsx}": [
+      "next lint --fix",
+      "eslint --fix",
+      "prettier --write",
+      "jest --bail --findRelatedTests --maxWorkers=2"
+    ]
   }
 }
